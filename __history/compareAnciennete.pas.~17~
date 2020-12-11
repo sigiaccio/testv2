@@ -1,0 +1,74 @@
+unit compareAnciennete;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, IBODataset, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, IB_Components,
+  IB_Access, vcl.wwdbigrd, vcl.wwdbgrid;
+
+type
+  TForm1 = class(TForm)
+    qry_dev: TIBOQuery;
+    DSDEV: TDataSource;
+    tiboDB_PROD: TIBODatabase;
+    gridProd: TDBGrid;
+    lbldev: TLabel;
+    lblprod: TLabel;
+    DSPROD: TDataSource;
+    qry_prod: TIBOQuery;
+    qry_prodID_PERS: TStringField;
+    qry_prodANNEE_SCOL: TIntegerField;
+    qry_prodANC_SERV: TIntegerField;
+    qry_prodANC_EPFC: TIntegerField;
+    lblrecordDev: TLabel;
+    lblrecordProd: TLabel;
+    qry_devID_PERS: TStringField;
+    qry_devANNEE_SCOL: TIntegerField;
+    qry_devANC_SERV: TIntegerField;
+    qry_devANC_EPFC: TIntegerField;
+    DBGrid2: TDBGrid;
+    btnCompare: TButton;
+    gridDev: TwwDBGrid;
+    procedure FormCreate(Sender: TObject);
+    procedure btnCompareClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.btnCompareClick(Sender: TObject);
+var i : integer;
+begin
+  for i := 0 to qry_dev.RecordCount do
+  begin
+    griddev.DataSource.DataSet.First;
+
+    With gridDev.DataSource.DataSet do
+    GotoBookmark(gridDev.SelectedIndex(i));
+
+
+    begin
+
+    end;
+  end;
+
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  qry_prod.Open;
+  qry_dev.open;
+  lblrecordProd.Caption := IntToStr(qry_prod.RecordCount);
+  lblrecordDev.Caption := IntToStr(qry_dev.RecordCount);
+end;
+
+end.

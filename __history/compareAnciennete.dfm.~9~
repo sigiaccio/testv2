@@ -1,0 +1,120 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 769
+  ClientWidth = 728
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lbldev: TLabel
+    Left = 152
+    Top = 24
+    Width = 30
+    Height = 19
+    Caption = 'DEV'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object lblprod: TLabel
+    Left = 536
+    Top = 24
+    Width = 42
+    Height = 19
+    Caption = 'PROD'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object dbgrd1: TDBGrid
+    Left = 8
+    Top = 56
+    Width = 320
+    Height = 689
+    DataSource = DSDEV
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object DBGrid1: TDBGrid
+    Left = 384
+    Top = 56
+    Width = 320
+    Height = 689
+    DataSource = DSPROD
+    TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object qry_dev: TIBOQuery
+    Active = True
+    IB_Connection = BDDM.EPFCIBODB
+    RecordCountAccurate = True
+    SQL.Strings = (
+      'select'
+      '  ID_PERS'
+      'from'
+      '  DET_ANC'
+      '/*where'
+      '  ID_PERS = :PIdPers*/')
+    Left = 16
+    Top = 8
+  end
+  object DSDEV: TDataSource
+    DataSet = qry_dev
+    Left = 72
+    Top = 8
+  end
+  object tiboDB_PROD: TIBODatabase
+    CacheStatementHandles = False
+    SQLDialect = 3
+    Params.Strings = (
+      'SERVER=isis.epfc.local'
+      'PROTOCOL=TCP/IP'
+      'PATH=C:\EPFC1920.fdb'
+      'USER NAME=SYSDBA')
+    Isolation = tiCommitted
+    DriverName = ''
+    Left = 608
+    Top = 8
+    SavedPassword = '.JuMbLe.01.4B3A132E012A154B'
+  end
+  object DSPROD: TDataSource
+    DataSet = qry_dev
+    Left = 400
+    Top = 8
+  end
+  object qry_prod: TIBOQuery
+    IB_Connection = tiboDB_PROD
+    RecordCountAccurate = True
+    SQL.Strings = (
+      'select'
+      '  ID_PERS'
+      'from'
+      '  DET_ANC'
+      '/*where'
+      '  ID_PERS = :PIdPers*/')
+    Left = 488
+    Top = 8
+  end
+end
